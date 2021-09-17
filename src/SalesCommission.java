@@ -17,11 +17,55 @@ Total Sales: $65,000.00
 Total Earnings: $1184.38
 
  */
+import javax.swing.*;
+import java.text.DecimalFormat;
 
 public class SalesCommission {
+    /*
+    1.get input - hourly rate, hours worked, sales commission percent, and the total sales of a salesperson
+    2.calculate hourly pay
+    3.calculate total earnings
+    4.display results
+     */
 
     public static void main(String[] args) {
 
+        double hourlyRate = getInput("What is your hourly rate?/enter a decimal");
+        double hoursWorked = getInput("How many hours did you work this week?/enter a decimal");
+        double salesCommission = getInput("What is your sales commission?/enter a decimal");
+        double totalSales = getInput("How much did you sell in sales this week?/enter a decimal");
+        double hourlyPay = hourlyPay(hourlyRate, hoursWorked);
+        double Commission = Commission(totalSales, salesCommission);
+        double totalEarnings = totalEarnings(hourlyPay, Commission);
+
+        JOptionPane.showMessageDialog(null, displayResults(totalEarnings));
+
+        System.exit(0);
     }
 
+    //Input Method
+    public static double getInput (String message) {
+        return Double.parseDouble(JOptionPane.showInputDialog(message));
+    }
+
+    //Hourly Pay Method
+    public static double hourlyPay (double hoursWorked, double hourlyRate) {
+        return hoursWorked * hourlyRate;
+    }
+
+    //Commission Method
+    public static double Commission(double totalSales, double salesCommission){
+        return totalSales * salesCommission/100.0;
+    }
+
+    //Total Earnings Method
+    public static double totalEarnings(double hourlyPay, double Commission){
+        return hourlyPay + Commission;
+    }
+
+    public static String displayResults(double totalEarnings){
+        DecimalFormat round = new DecimalFormat("#,###.00");
+        String message = "Your total is: " + round.format(totalEarnings);
+        return message;
+    }
 }
